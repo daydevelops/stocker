@@ -18,4 +18,8 @@ class Product extends Model
     public function stock() {
         return $this->hasMany(Stock::class);
     }
+
+    public function track() {
+        $this->stock->each->track();
+    }
 }
