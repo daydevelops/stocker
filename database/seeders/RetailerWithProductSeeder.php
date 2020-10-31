@@ -17,7 +17,7 @@ class RetailerWithProductSeeder extends Seeder
     public function run()
     {
         $product = Product::factory()->create();
-        $retailer = Retailer::factory(['name'=>'bestbuy'])->create();
+        $retailer = Retailer::factory(['name'=>'BestBuy'])->create();
         $stock = Stock::factory([
             'product_id' => $product->id,
             'retailer_id' => $retailer->id,

@@ -4,7 +4,6 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Facades\Http;
 
 class Stock extends Model
 {
@@ -16,31 +15,22 @@ class Stock extends Model
         'in_stock' => "boolean"
     ];
 
-    public function track() {
-        // hit API for retailer
-        // fetch updated info on the product
-        // update our db
-
-        switch ($this->retailer->name) {
-            case 'bestbuy':
-                $results = Http::get('http://foo.test')->json();
-                $this->update([
-                    'in_stock' => $results['available'],
-                    'price' => $results['price']
-                ]);
-                break;
-            
-            default:
-                # code...
-                break;
-        }
+    public function track()
+    {
+        $status = $this->retailer->client()->checkAvailability($this);
+        $this->update([
+            'in_stock' => $status->available,
+            'price' => $status->price
+        ]);
     }
 
-    public function retailer() {
+    public function retailer()
+    {
         return $this->belongsTo(Retailer::class);
     }
 
-    public function product() {
+    public function product()
+    {
         return $this->belongsTo(Product::class);
     }
 }
