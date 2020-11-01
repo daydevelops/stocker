@@ -6,6 +6,7 @@ use App\Models\Stock;
 use App\Models\Retailer;
 use Database\Seeders\RetailerWithProductSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\Http;
 use Tests\TestCase;
 
 class StockTest extends TestCase

@@ -25,7 +25,7 @@ class TrackCommandTest extends TestCase
         //when
         // I trigger the artisan command assuming the stock is available now
         Http::fake(function () {
-            return ['available' => true,'price' => 1234];
+            return ['onlineAvailability' => true,'salePrice' => 1234];
         });
         $this->artisan('track')->expectsOutput('All Done!');
 
