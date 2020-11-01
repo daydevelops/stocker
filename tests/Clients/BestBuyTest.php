@@ -31,7 +31,6 @@ class BestBuyTest extends TestCase
         $retailer->addStock($product, $stock);
 
         $this->artisan('track')->expectsOutput('All Done!');
-        dd(Stock::first());
 
         $this->assertFalse(Stock::first()->price == 99999);
     }

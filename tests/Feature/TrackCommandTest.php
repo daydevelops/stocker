@@ -21,7 +21,6 @@ class TrackCommandTest extends TestCase
         // we have a product that is in stock
         $this->seed(RetailerWithProductSeeder::class);
         $this->assertFalse(Product::first()->inStock());
-
         //when
         // I trigger the artisan command assuming the stock is available now
         Http::fake(function () {

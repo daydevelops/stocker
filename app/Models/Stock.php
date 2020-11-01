@@ -22,6 +22,12 @@ class Stock extends Model
             'in_stock' => $status->available,
             'price' => $status->price
         ]);
+        if ($this->wasChanged()) {
+            $this->history()->create([
+                'price' => $status->price,
+                'in_stock' => $status->available
+            ]);
+        }
     }
 
     public function retailer()
@@ -32,5 +38,9 @@ class Stock extends Model
     public function product()
     {
         return $this->belongsTo(Product::class);
+    }
+
+    public function history() {
+        return $this->hasMany(History::class);
     }
 }
