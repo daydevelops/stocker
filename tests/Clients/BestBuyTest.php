@@ -31,7 +31,7 @@ class BestBuyTest extends TestCase
 
         $retailer->addStock($product, $stock);
         User::factory(['email'=>'adamday1618@gmail.com'])->create();
-        $this->artisan('track')->expectsOutput('All Done!');
+        $this->artisan('track');
 
         $this->assertFalse(Stock::first()->price == 99999);
     }

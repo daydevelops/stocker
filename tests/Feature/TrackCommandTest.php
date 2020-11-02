@@ -30,7 +30,7 @@ class TrackCommandTest extends TestCase
         Http::fake(function () {
             return ['onlineAvailability' => true,'salePrice' => 1234];
         });
-        $this->artisan('track')->expectsOutput('All Done!');
+        $this->artisan('track');
 
         //then
         // the stock details should be refreshed
@@ -45,7 +45,7 @@ class TrackCommandTest extends TestCase
         });
         Notification::fake();
 
-        $this->artisan('track')->expectsOutput('All Done!');
+        $this->artisan('track');
         Notification::assertSentTo(User::first(), NewStockAvailable::class);
     }
 
@@ -58,7 +58,7 @@ class TrackCommandTest extends TestCase
         });
         Notification::fake();
 
-        $this->artisan('track')->expectsOutput('All Done!');
+        $this->artisan('track');
         Notification::assertNothingSent();
     }
 }
