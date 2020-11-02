@@ -13,7 +13,7 @@ class BestBuy implements Client
         $results = Http::get($url)->json();
         return new StockStatus(
             $results['onlineAvailability'],
-            $results['salePrice'] * 100 // to cents
+            $results['salePrice']
         );
     }
 

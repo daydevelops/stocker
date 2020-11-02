@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Events\StockUpdated;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -15,17 +16,17 @@ class Stock extends Model
         'in_stock' => "boolean"
     ];
 
+    protected $dispatchesEvents = [
+        'updated' => StockUpdated::class
+    ];
+
     public function track()
     {
         $status = $this->retailer->client()->checkAvailability($this);
-        $this->update([
-            'in_stock' => $status->available,
-            'price' => $status->price
-        ]);
-        if ($this->wasChanged()) {
-            $this->history()->create([
-                'price' => $status->price,
-                'in_stock' => $status->available
+        if ($this->in_stock != $status->available || $this->price != $status->price) {
+            $this->update([
+                'in_stock' => $status->available,
+                'price' => $status->price
             ]);
         }
     }
@@ -40,7 +41,8 @@ class Stock extends Model
         return $this->belongsTo(Product::class);
     }
 
-    public function history() {
+    public function history()
+    {
         return $this->hasMany(History::class);
     }
 }

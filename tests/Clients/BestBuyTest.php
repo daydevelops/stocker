@@ -5,6 +5,7 @@ namespace Tests\Unit;
 use App\Models\Stock;
 use App\Models\Retailer;
 use App\Models\Product;
+use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
@@ -29,7 +30,7 @@ class BestBuyTest extends TestCase
         ])->create();
 
         $retailer->addStock($product, $stock);
-
+        User::factory(['email'=>'adamday1618@gmail.com'])->create();
         $this->artisan('track')->expectsOutput('All Done!');
 
         $this->assertFalse(Stock::first()->price == 99999);

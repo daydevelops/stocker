@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use App\Models\Product;
 use App\Models\Retailer;
+use App\Models\User;
 use App\Models\Stock;
 use Illuminate\Database\Seeder;
 
@@ -25,5 +26,7 @@ class RetailerWithProductSeeder extends Seeder
         ])->create();
 
         $retailer->addStock($product, $stock);
+
+        User::factory(['email'=>'adamday1618@gmail.com'])->create();
     }
 }
